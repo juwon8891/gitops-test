@@ -1,0 +1,37 @@
+# Default values for prometheus.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
+
+server:
+  global:
+    scrape_interval: 15s
+  service:
+    type: LoadBalancer
+  retention: 10d
+  persistentVolume:
+    enabled: true
+    accessModes: ["ReadWriteOnce"]
+    size: 8Gi
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
+
+pushgateway:
+  enabled: true
+
+rbac:
+  create: true
